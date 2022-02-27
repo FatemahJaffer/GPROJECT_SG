@@ -1,3 +1,32 @@
+<? php 
+
+$dbServername = "localhost";
+$dbUsername = "root";
+$dbPassword = "";
+$dbName = "smart_gate";
+
+$conn = mysqli_connect($dbServername,$dbUsername,$dbPassword,$dbName);
+
+if (isset($_POST["submit"])) {
+    if (!empty($_POST["id"])&&!empty($_POST["FirstName"])&&!empty($_POST["LastName"])&&!empty($_POST["Phone"])&&!empty($_POST["Email"])
+        &&!empty($_POST["Password"])) {
+        
+    $Id = $_POST["id"];
+    $FirstName = $_POST["FirstName"];
+    $LastName = $_POST["LastName"];   
+    $Phone = $_POST["Phone"];  
+    $Email = $_POST["Email"];  
+    $Password = $_POST["Password"];  
+        
+        $sql = "INSERT INTO employees(ID,First_name,Second_name,Phone_Number,Password)"
+        
+}
+else {
+    echo 'Please fill out all information'
+}
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,9 +36,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <title>
-Manage users</title>
-<!--    -->
+  <title>Add Employee </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -55,7 +82,8 @@ Manage users</title>
               <p>User Profile</p>
             </a>
           </li>
-          <li  class="active ">
+            
+          <li class="active ">
             <a href="./manageUser.html">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Mange users</p>
@@ -68,7 +96,7 @@ Manage users</title>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="./rtl.html">
               <i class="tim-icons icon-world"></i>
               <p>Change Gate Mode</p>
             </a>
@@ -94,7 +122,7 @@ Manage users</title>
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Profile</a>
+            <a class="navbar-brand" href="javascript:void(0)">Add Employee</a> 
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -154,91 +182,95 @@ Manage users</title>
           </div>
         </div>
       </div>
-
-
-
+        
+        
+        
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-md-12">
-            <div class="card ">
+          <div class="col-md-8">
+            <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Mange Users</h4>
+                <h5 class="title">Add Employee</h5>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
-                      <tr>
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                         First Name
-                        </th>
-                        <th>
-                          Second Name
-                        </th>
-                        <th class="text-center">
-                          Phone
-                          </th>
-                           <th class="text-center">
-                          Email
-                          </th>
-                           <th class="text-center">
-                          State
-                          </th>
-                           <th class="text-center">
-
-                          </th>
-                           <th class="text-center">
-
-                          </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>111111</td>
-                        <td>Ali</td>
-                        <td>Ali</td>
-                        <td class="text-center">+966123456789</td>
-                        <td class="text-center">AAA@gmail.com</td>
-                          <td class="text-center">
-                          <select class="form-control">
-                          <option>Admin</option>
-                          <option>Security Guard</option></select></td>
-                          <td class="text-center"><i class="tim-icons icon-pencil"></i></td>
-                          <td class="text-center">
-                           <i class="tim-icons icon-simple-remove"></i></td> </tr>
-
-                        <tr>
-                         <td>658772</td>
-                        <td>Minerva</td>
-                        <td>Hooper</td>
-                        <td class="text-center">+966123456789</td>
-                        <td class="text-center">Abc@gmail.com</td>
-                          <td class="text-center">
-                          <select class="form-control">
-                          <option>Security Guard</option>
-                          <option>Admin</option></select></td>
-                          <td class="text-center"><i class="tim-icons icon-pencil"></i></td>
-                          <td class="text-center">
-                           <i class="tim-icons icon-simple-remove"></i></td> </tr>
-
-                    </tbody>
-                  </table>
-                </div>
-
-                       <div class="form-group">
-                          <div class="card-footer">
-                              <a href="./addEmployee.html">
-                <button  class="btn btn-fill btn-primary">Add Emplyee</button>
-                              </a>
+                <form>
+                  <div class="row"> <!--                        ID generation                                          -->
+                    <div class="col-md-5 pr-md-1">
+                      <div class="form-group">
+                        <label>ID</label>
+                        <input id="Id" name="id" type="number" onclick="generateId()">
+                      </div>
+                    </div>
+                  </div>   <!--                        ID generation                                          -->
+                  <div class="row">
+                    <div class="col-md-6 pr-md-1">
+                      <div class="form-group">
+                        <label>First Name</label>
+                        <input name="FirstName" type="text" class="form-control" placeholder="First Name" value="Minerva">
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-md-1">
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        <input name="LastName" type="text" class="form-control" placeholder="Last Name" value="Hooper">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Phone</label>
+                        <input name="Phone" type="text" class="form-control" placeholder="Phone" value="+96612346789">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-md-1">
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input name="Email" type="text" class="form-control" value="ABC@gmail.com">
+                      </div>
+                    </div>
+                   
+                    <div class="col-md-6 pl-md-1"> <!--                        Password generation                                          -->
+                      <div class="form-group">
+                        <label>Password</label>
+                        <input name="Password" id="password" type="password" onclick="generatePassword()">
+               <span class="toggle" onclick="show$hide()">
+               <i class="fas fa-eye"></i>
+               </span>
+                      </div>
+                   </div><!--                        Password generation                                               -->
+                  </div>
+                </form>
               </div>
-                       </div>
-
+              <div class="card-footer">
+                <button type="cancel" class="btn btn-fill btn-primary">Cancel</button>
+                <button  type="submit" class="btn btn-fill btn-primary">Save &amp; Add Employee</button>
 
               </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-user">
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="author">
+                    <div class="block block-one"></div>
+                    <div class="block block-two"></div>
+                    <div class="block block-three"></div>
+                    <div class="block block-four"></div>
+                    <a href="javascript:void(0)">
+                      <img class="avatar" src="../assets/img/anime3.png" alt="...">
+                      <h5 class="title">Ali Ali</h5>
+                    </a>
+                    <p class="description">
+Admin                    </p>
+                  </div>
+                
+              </div>
+             
             </div>
           </div>
         </div>
@@ -246,7 +278,7 @@ Manage users</title>
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
-
+            
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
                 About Us
@@ -254,11 +286,17 @@ Manage users</title>
             </li>
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-               Log out
+                Log out
               </a>
             </li>
           </ul>
-
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
         </div>
       </footer>
     </div>
@@ -286,11 +324,84 @@ Manage users</title>
           <span class="badge dark-badge ml-2"></span>
           <span class="color-label">DARK MODE</span>
         </li>
-
+        
       </ul>
     </div>
   </div>
   <!--   Core JS Files   -->
+    <script>  
+        function show$hide() {
+            let toggle = document.getElementsByClassName("toggle")[0];
+            let password = document.querySelector("#password");
+
+            console.log(toggle);
+
+            if (password.getAttribute("type") == "password") {
+                password.setAttribute("type", "text");
+            } else {
+                password.setAttribute("type", "password")
+            }
+        } 
+
+        function generatePassword() {
+            let text = document.querySelector("#password");
+            if(window.confirm("Hi Admin, \nShould we autogenerate a password for you?") && text.length == null) {
+            text.value = '';
+            let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!£$%^&*()><?@|/.\-_";
+            for (let i = 0; i < 8; i++)
+            text.value += possible.charAt(Math.floor(Math.random() * possible.length));
+            regex = useRegex(text);
+                if(regex) {
+                    return text;
+                }
+                else {
+                    text.value += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+            }
+
+            else {
+                return false;
+            } 
+        }
+
+        function useRegex(input) {
+            let regex = new RegExp("/^[a-z0-9\_\.\-]{2,20}\@[a-z0-9\_\-]{2,20}\.[a-z]{2,9}$/");
+            return regex.test(input);
+        }
+
+    </script> <!--                                                   password generation                                                 -->
+    
+    <script>
+     
+
+        function generateId() {
+            let text = document.querySelector("#Id");
+            if(window.confirm("Hi Admin, \nShould we autogenerate an ID for you?") && text.length == null) {
+            text.value = '';
+            let possible = "0123456789";
+            for (let i = 0; i < 6; i++)
+            text.value += possible.charAt(Math.floor(Math.random() * possible.length));
+            regex = useRegex(text);
+                if(regex) {
+                    return text;
+                }
+                else {
+                    text.value += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+            }
+
+            else {
+                return false;
+            } 
+        }
+
+        function useRegex(input) {
+            let regex = new RegExp("/^0-9\/");
+            return regex.test(input);
+        }
+
+    </script>
+    
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
